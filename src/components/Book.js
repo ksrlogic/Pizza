@@ -200,9 +200,72 @@ const Book = (props) => {
     return newLocations;
   };
 
+  const getTimes = () => {
+    let newTimes = [];
+    times.forEach((time) => {
+      newTimes.push(
+        <DropdownItem
+          key={time}
+          className="booking-dropdown-item"
+          onClick={(e) => {
+            let newSel = {
+              ...selection,
+              table: {
+                ...selection.table,
+              },
+              time: time,
+            };
+            setSelection(newSel);
+          }}
+        >
+          {time}
+        </DropdownItem>
+      );
+    });
+    return newTimes;
+  };
+
+  const getTables = () => {
+    console.log("Getting tables");
+    if (getEmptyTables() > 0) {
+      let tables = [];
+      totalTables.forEach((table) => {
+        if (tables.isAvailable) {
+          tables.push(
+            <Table
+              key={table._id}
+              id={table._id}
+              chairs={table.capacity}
+              name={table.name}
+              empty
+              selectTable={selectTable}
+            />
+          );
+        } else {
+          tables.push(
+            <Table
+              key={table._id}
+              id={table._id}
+              chairs={table.capacity}
+              name={table.name}
+              selectTable={selectTable}
+            />
+          );
+        }
+      });
+      return tables;
+    }
+  };
+
   return (
     <div>
-      <p>Bookign Page</p>
+      <Row noGutters className="text-center align-items-center pizza-cta">
+        <Col>
+          <p className="looking-for-pizza">
+            {!selection.table.id ? "Book a Table" : "Confirm Reservation"}
+          </p>
+        </Col>
+      </Row>
       <Table />
     </div>
   );
