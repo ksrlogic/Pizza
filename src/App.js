@@ -7,7 +7,7 @@ import Book from "./components/Book";
 import Thankyou from "./components/Thankyou";
 
 function App() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   return (
     <>
